@@ -10,6 +10,24 @@
    Base styles: opinionated defaults
    ========================================================================== */
 
+.question {
+    margin-top: 20px;
+    font-family: "Avenir Next";
+    border: solid black 1px;
+
+}
+
+#question {
+    font-family: 'Montserrat';
+    padding: 20px 0px;
+
+}
+
+#option {
+    border: solid black 1px;
+    padding: 10px;
+}
+
 html {
     color: #222;
     font-size: 1em;
