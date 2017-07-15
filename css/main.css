@@ -28,6 +28,11 @@
     padding: 10px;
 }
 
+#option:hover {
+
+    background-color: #35EE38;
+}
+
 html {
     color: #222;
     font-size: 1em;
