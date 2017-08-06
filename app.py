@@ -1,4 +1,3 @@
-from __future__ import print_function
 from flask import Flask, render_template
 import httplib2
 import os

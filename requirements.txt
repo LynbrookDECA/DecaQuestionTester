@@ -2,3 +2,6 @@ Flask
 requests
 python-firebase
 gunicorn
+google-api-python-client
+httplib2
+
