@@ -66,10 +66,8 @@ def get_credentials():
         Credentials, the obtained credential.
     """
     home_dir = os.getcwd()
-    credential_dir = os.path.join(home_dir, '/credentials')
+    credential_dir = home_dir
     print(credential_dir)
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir,
                                    'sheets.googleapis.com-python-quickstart.json')
 
@@ -80,8 +78,6 @@ def get_credentials():
         flow.user_agent = APPLICATION_NAME
         if flags:
             credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
     return credentials
 
