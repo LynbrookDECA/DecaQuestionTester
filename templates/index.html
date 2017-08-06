@@ -28,15 +28,57 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 question">
                     <p id="question"> {{ question }}</p>
-                    <p id="option"> A. {{ optionA }} </p>
-                    <p id="option"> B. {{ optionB }} </p>
-                    <p id="option"> C. {{ optionC }}</p>
-                    <p id="option"> D. {{ optionD }}</p>
+                    <button class="option" id="A" onclick="checkAnswer('A')"> A. {{ optionA }}</button>
+                    <button class="option" id="B" onclick="checkAnswer('B')"> B. {{ optionB }}</button>
+                    <button class="option" id="C" onclick="checkAnswer('C')"> C. {{ optionC }}</button>
+                    <button class="option" id="D" onclick="checkAnswer('D')"> D. {{ optionD }}</button>
+                </div>
+            </div>
+            <div class = "row">
+                <div class="col-md-8 col-md-offset-2 result" id="result">
+                    <p id="resultText"> Congrats! You got the right answer! </p>
+                </div>
+            </div>
+            <div class = "row">
+                <div class="col-md-8 col-md-offset-2">
+                    <button id="next" onclick="next()">Next</button>
                 </div>
             </div>
 
+
         </div>
 
+        <script>
+            function checkAnswer(selectedAnswer) {
+                var rightAnswer = '{{rightAnswer}}';
+                var result = document.getElementById("result");
+                var resultText = document.getElementById("resultText");
+                result.style.display = "block";
+                if (rightAnswer == selectedAnswer) {
+                    result.style.color = "#35EE38";
+                    resultText.innerHTML = "Congrats! You got the right answer!";
+                    document.getElementById(selectedAnswer).style.backgroundColor = "#35EE38";
+                } else {
+                    result.style.color = "red";
+                    resultText.innerHTML = "Whoops! The correct answer was " + rightAnswer;
+                    document.getElementById(selectedAnswer).style.backgroundColor = "red";
+                    document.getElementById(rightAnswer).style.backgroundColor = "#35EE38";
+                }
+                var buttons = document.getElementsByClassName("option")
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].disabled = true;
+                }
+            }
+
+            function next() {
+                var ref = window.location.href;
+                ref = ref.substring(0, ref.length - 1);
+                ref = ref + "{{ newID }}";
+                window.location.href = ref;
+
+            }
+
+        </script>
 
         <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> -->
         <script src="{{ url_for('static', filename='js/vendor/jquery-1.12.0.min.js') }}"></script>

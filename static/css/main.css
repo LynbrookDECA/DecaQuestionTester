@@ -23,14 +23,42 @@
 
 }
 
-#option {
+.option {
     border: solid black 1px;
     padding: 10px;
+    width: 100%;
+    text-align: left;
+    background-color: white;
+    margin-bottom: 20px;
 }
 
-#option:hover {
+.option:hover {
 
-    background-color: #35EE38;
+    background-color: #2db0fe;
+}
+
+.result {
+    margin-top: 20px;
+    background-color: white;
+    border: 1px black solid;
+    font-family: "Avenir Next";
+    height: 50px;
+    display: none;
+}
+
+.result p {
+    padding-top: 15px;
+}
+
+#next {
+    padding: 20px;
+    float: right;
+    background-color: white;
+    border: 1px black solid;
+    padding: 5px 30px;
+    font-family: 'Avenir Next';
+    margin-top: 20px;
+    margin-right: -20px;
 }
 
 html {

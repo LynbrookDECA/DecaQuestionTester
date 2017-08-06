@@ -23,8 +23,8 @@ APPLICATION_NAME = 'DecaQuestionTester'
 app = Flask(__name__)
 app.static_folder = 'static'
 
-@app.route('/', methods=['GET'])
-def hello_world():
+@app.route('/<sheet>/<int:id>', methods=['GET'])
+def hello_world(sheet, id):
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
@@ -33,27 +33,29 @@ def hello_world():
                               discoveryServiceUrl=discoveryUrl)
 
     spreadsheetId = '1B84hzrKLUS1SXRH7HZzcgZ7sxXcOxNPh_Uy6cJyNx-Q'
-    rangeName = 'Harsh Chobisa!A2:G'
+    rangeName =  sheet + '!A2:G'
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
     values = result.get('values', [])
 
-    optionA = optionB = optionC = optionD = question = ""
+    optionA = optionB = optionC = optionD = question = rightAnswer = ""
 
     if not values:
         print('No data found.')
     else:
-        for row in values:
-            print(row)
-            # Print columns A and E, which correspond to indices 0 and 4.
-            print('%s, %s, %s' % (row[1], row[2], row[4]))
-            question = row[1]
-            optionA = row[2]
-            optionB = row[3]
-            optionC = row[4]
-            optionD = row[5]
-            break
-    return render_template('index.html', question = question, optionA = optionA, optionB = optionB, optionC = optionC, optionD = optionD)
+        row = values[int(id)]
+        print(row)
+        # Print columns A and E, which correspond to indices 0 and 4.
+        print('%s, %s, %s' % (row[1], row[2], row[4]))
+        question = row[1]
+        optionA = row[2]
+        optionB = row[3]
+        optionC = row[4]
+        optionD = row[5]
+        rightAnswer = row[6]
+
+    return render_template('index.html', question = question, optionA = optionA, optionB = optionB,
+                           optionC = optionC, optionD = optionD, rightAnswer = rightAnswer, newID = str(id+1) )
 
 def get_credentials():
     """Gets valid user credentials from storage.
