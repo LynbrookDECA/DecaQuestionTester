@@ -27,11 +27,11 @@
             </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 question">
-                    <p id="question"> In order for a contract between two parties to be legally binding, one party must make an offer and the other party must accept the offer. This offer and acceptance meet the __________ provision.</p>
-                    <p id="option"> A. consideration </p>
-                    <p id="option"> B. competent parties </p>
-                    <p id="option"> C. legality </p>
-                    <p id="option"> D. agreement </p>
+                    <p id="question"> {{ question }}</p>
+                    <p id="option"> A. {{ optionA }} </p>
+                    <p id="option"> B. {{ optionB }} </p>
+                    <p id="option"> C. {{ optionC }}</p>
+                    <p id="option"> D. {{ optionD }}</p>
                 </div>
             </div>
 
@@ -40,7 +40,6 @@
 
         <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> -->
         <script src="{{ url_for('static', filename='js/vendor/jquery-1.12.0.min.js') }}"></script>
-        <script>window.jQuery || document.write('<script src="../static/js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
         <script src="{{ url_for('static', filename='js/plugins.js') }}"></script>
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>

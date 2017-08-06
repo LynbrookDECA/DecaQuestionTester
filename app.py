@@ -21,6 +21,7 @@ CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'DecaQuestionTester'
 
 app = Flask(__name__)
+app.static_folder = 'static'
 
 @app.route('/', methods=['GET'])
 def hello_world():
@@ -32,19 +33,27 @@ def hello_world():
                               discoveryServiceUrl=discoveryUrl)
 
     spreadsheetId = '1B84hzrKLUS1SXRH7HZzcgZ7sxXcOxNPh_Uy6cJyNx-Q'
-    rangeName = 'Harsh Chobisa!A2:E'
+    rangeName = 'Harsh Chobisa!A2:G'
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
     values = result.get('values', [])
 
+    optionA = optionB = optionC = optionD = question = ""
+
     if not values:
         print('No data found.')
     else:
-        print('Name, Major:')
         for row in values:
+            print(row)
             # Print columns A and E, which correspond to indices 0 and 4.
-            print('%s, %s' % (row[1], row[4]))
-    return render_template('index.html')
+            print('%s, %s, %s' % (row[1], row[2], row[4]))
+            question = row[1]
+            optionA = row[2]
+            optionB = row[3]
+            optionC = row[4]
+            optionD = row[5]
+            break
+    return render_template('index.html', question = question, optionA = optionA, optionB = optionB, optionC = optionC, optionD = optionD)
 
 def get_credentials():
     """Gets valid user credentials from storage.
