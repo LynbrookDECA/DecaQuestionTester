@@ -43,8 +43,8 @@ def callback():
 
 @app.route('/<sheet>/<int:id>', methods=['GET'])
 def hello_world(sheet, id):
-    #//credentials = get_credentials()
-    #http = credentials.authorize(httplib2.Http())
+    credentials = get_credentials()
+    http = credentials.authorize(httplib2.Http())
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
                     'version=v4')
     service = discovery.build('sheets', 'v4', http=http,
@@ -77,13 +77,11 @@ def hello_world(sheet, id):
 
 def get_credentials():
     """Gets valid user credentials from storage.
-
     If nothing has been stored, or if the stored credentials are invalid,
     the OAuth2 flow is completed to obtain the new credentials.
-
     Returns:
         Credentials, the obtained credential.
-
+    """
     home_dir = os.getcwd()
     credential_dir = home_dir
     print(credential_dir)
@@ -92,12 +90,13 @@ def get_credentials():
 
     store = Storage(credential_path)
     credentials = store.get()
-    if not credentials or credentials.invalid: """
-    flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES, redirect_uri="/oauth2callback")
-    flow.user_agent = APPLICATION_NAME
-    auth_uri = flow.step1_get_authorize_url()
-    redirect(auth_uri, code=302)
-
+    if not credentials or credentials.invalid:
+        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
+        flow.user_agent = APPLICATION_NAME
+        if flags:
+            credentials = tools.run_flow(flow, store, flags)
+        print('Storing credentials to ' + credential_path)
+    return credentials
 
 
 if __name__ == '__main__':
