@@ -31,18 +31,21 @@ app.static_folder = 'static'
 def create_page():
     return render_template('home.html')
 
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    print("HELLO")
     flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES, redirect_uri="http://127.0.0.1:5000/oauth2callback")
     flow.user_agent = APPLICATION_NAME
     auth_uri = flow.step1_get_authorize_url()
     print(auth_uri)
-
-
     return redirect(auth_uri, code=302)
+
 
 @app.route('/oauth2callback', methods=['GET', 'POST'])
 def callback():
     return redirect('/tests', code=302)
+
 
 @app.route('/tests', methods=['GET'])
 def tests():
@@ -82,6 +85,7 @@ def hello_world(sheet, id):
 
     return render_template('index.html', question = question, optionA = optionA, optionB = optionB,
                            optionC = optionC, optionD = optionD, rightAnswer = rightAnswer, newID = str(id+1) )
+
 
 def get_credentials():
     home_dir = os.getcwd()

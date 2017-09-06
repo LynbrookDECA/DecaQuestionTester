@@ -12,7 +12,7 @@
     <link href="" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
   </head>
 
@@ -39,7 +39,7 @@
       <div class="jumbotron">
         <h1 class="display-3">Enigma</h1>
         <p class="lead">Welcome to the fastest and most efficient way to test yourself on DECA written tests. With more than 10 different tests uploaded and new ones being added every week, practice questions and refine your skills until you're the best!</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign In</a></p>
+        <p><a class="btn" type="submit" href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='img/googlebutton.png') }}"></a></p>
       </div>
 
     <!-- Bootstrap core JavaScript
