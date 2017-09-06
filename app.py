@@ -28,7 +28,10 @@ app.static_folder = 'static'
 
 
 @app.route('/', methods=['GET', 'POST'])
-def getCreds():
+def create_page():
+    return render_template('home.html')
+
+def login():
     flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES, redirect_uri="http://127.0.0.1:5000/oauth2callback")
     flow.user_agent = APPLICATION_NAME
     auth_uri = flow.step1_get_authorize_url()
@@ -39,7 +42,12 @@ def getCreds():
 
 @app.route('/oauth2callback', methods=['GET', 'POST'])
 def callback():
-    return "callback"
+    return redirect('/tests', code=302)
+
+@app.route('/tests', methods=['GET'])
+def tests():
+    return render_template("tests.html")
+
 
 @app.route('/<sheet>/<int:id>', methods=['GET'])
 def hello_world(sheet, id):
@@ -76,12 +84,6 @@ def hello_world(sheet, id):
                            optionC = optionC, optionD = optionD, rightAnswer = rightAnswer, newID = str(id+1) )
 
 def get_credentials():
-    """Gets valid user credentials from storage.
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-    Returns:
-        Credentials, the obtained credential.
-    """
     home_dir = os.getcwd()
     credential_dir = home_dir
     print(credential_dir)
